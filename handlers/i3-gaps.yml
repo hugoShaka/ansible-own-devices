@@ -1,0 +1,33 @@
+---
+- name: Reconfigure i3-gaps with autoreconf
+  command: "autoreconf --force --install"
+  args:
+    chdir: "{{ bin_directory }}/i3-gaps"
+
+- name: Clean old i3-gaps build folder
+  file:
+    state: absent
+    path: "{{ bin_directory }}/i3-gaps/build"
+
+- name: Create new i3-gaps build folder
+  file:
+    state: directory
+    path: "{{ bin_directory }}/i3-gaps/build"
+
+- name: Configure i3-gaps build
+  command: "../configure --prefix=/usr --sysconfdir=/etc --disable-sanitizers"
+  args:
+    chdir: "{{ bin_directory }}/i3-gaps/build"
+
+- name: Compile i3-gaps
+  command: "make"
+  args:
+    chdir: "{{ bin_directory }}/i3-gaps/build"
+
+- name: Install i3-gaps
+  command: "make install"
+  args:
+    chdir: "{{ bin_directory }}/i3-gaps/build"
+  become: true
+
+

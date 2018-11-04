@@ -1,0 +1,7 @@
+---
+username: shaka
+homedir: "/home/shaka"
+bin_directory: "{{ homedir }}/.bin/"
+
+display_servers:
+  - "x11"

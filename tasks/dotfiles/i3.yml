@@ -1,0 +1,19 @@
+---
+- name: Create wallpaper directory
+  file:
+    path: "{{ homedir }}/Pictures/wallpapers"
+    state: directory
+    recurse: yes
+
+- name: Deploy wallpaper
+  get_url:
+    url: https://source.unsplash.com/random/1920x1080
+    dest: "{{ homedir }}/Pictures/wallpapers/wp.jpeg"
+    force: no
+  notify: Convert wallpaper to png
+
+- name: Deploy i3 config
+  template:
+    src: i3-config.j2
+    dest: "{{ homedir }}/.config/i3/config"
+

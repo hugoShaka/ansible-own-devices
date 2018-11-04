@@ -1,0 +1,22 @@
+---
+- import_tasks: install-packages.yml
+
+- import_tasks: graphical/main.yml
+
+- import_tasks: dotfiles/main.yml
+
+- name: "Ensure the user {{ username }} exists, is sudoer, and uses fish"
+  user:
+    name: "{{ username }}"
+    home: "{{ homedir }}"
+    move_home: yes
+    shell: /usr/bin/fish
+    groups: sudo
+    append: yes
+  become: yes
+
+- name: Use xterm as terminal emulator
+  alternatives:
+    name: x-terminal-emulator
+    path: /usr/bin/xterm
+  become: yes

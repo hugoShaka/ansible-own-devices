@@ -1,0 +1,64 @@
+---
+- name: Update apt cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+  become: yes
+
+- name: Install CLI tools
+  apt:
+    state: present
+    pkg:
+    - vim
+    - fish
+    - tmux
+    - htop
+    - less
+    - gcc
+    - gpp
+    - clang
+    - wget
+    - iotop
+    - git
+    - zip
+    - unzip
+    - tar
+    - make
+    - ranger
+    - gnupg
+    - ca-certificates
+    - curl
+    - wget
+    - python3
+    - sudo
+    - python3-pip
+    - python3-virtualenv
+    - pass
+  become: yes
+
+- name: Install X tools
+  apt:
+    state: present
+    pkg:
+    - pavucontrol
+    - imagemagick
+    - sm
+    - quassel-client
+  become: yes
+
+- name: Install rofi-pass
+  git:
+    repo: https://github.com/carnager/rofi-pass
+    dest: "{{ bin_directory }}/rofi-pass"
+
+- name: Install pinentry-rofi
+  copy:
+    src: pinentry-rofi.sh
+    dest: "{{ bin_directory }}/pinentry-rofi.sh"
+    mode: 0751
+
+- name: Configure gpg-agent to use pinentry
+  template:
+    src: gpg-agent.conf.j2
+    dest: "{{ homedir }}/.gnupg/gpg-agent.conf"
+

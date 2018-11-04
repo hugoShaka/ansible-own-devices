@@ -1,0 +1,8 @@
+---
+- name: Include X11 specific tasks
+  include_tasks: graphical/x11.yml
+  when: "'x11' in display_servers"
+
+- name: Include wayland specific tasks
+  include_tasks: graphical/wayland.yml
+  when: "'wayland' in display_servers"

@@ -1,0 +1,32 @@
+---
+- name: Clone vim config files
+  git:
+    repo: https://github.com/hugoShaka/vim-config
+    dest: "{{ homedir }}/.vim"
+    recursive: yes
+  changed_when: False
+  # Not idempotent, dunno why
+
+- name: Symlink vimrc
+  file:
+    src: "{{ homedir }}/.vim/vimrc"
+    dest: "{{ homedir }}/.vimrc"
+    state: link
+
+- name: Import i3 specific tasks
+  import_tasks: dotfiles/i3.yml
+
+- name: Deploy Xresources (and Xdefaults)
+  copy:
+    src: Xdefaults
+    dest: "{{ homedir }}/{{ item }}"
+  loop:
+    - ".Xdefaults"
+    - ".Xresources"
+
+  #- name: Deploy fish config files
+  #
+  #- name: Deploy dunst config files
+  #
+  #- name: Deploy keynav config files
+  #

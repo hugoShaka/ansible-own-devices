@@ -1,0 +1,11 @@
+---
+- name: Build i3-gaps
+  include: i3-gaps.yml
+
+- name: Convert wallpaper to png
+  command: "convert wp.jpeg wp.png"
+  args:
+    chdir: "{{ homedir }}/Pictures/wallpapers/"
+
+- name: Reload xrdb
+  command: xrdb ~/.Xdefaults
