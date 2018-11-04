@@ -1,5 +1,10 @@
 ! XTerm conf
-XTerm*font:xft:Fira Code:size=11
+XTerm*font:xft:Fira Code:size=11:antialias=true
+XTerm*termName: xterm-256color
+
+Xft.antialias: 1
+Xft.autohint: 1
+Xft.hintstyle: hintslight
 
 XTerm*background: #000000
 XTerm*foreground: #ffffff
