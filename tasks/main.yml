@@ -14,9 +14,3 @@
     groups: sudo
     append: yes
   become: yes
-
-- name: Use xterm as terminal emulator
-  alternatives:
-    name: x-terminal-emulator
-    path: /usr/bin/xterm
-  become: yes

@@ -24,6 +24,18 @@
     - ".Xdefaults"
     - ".Xresources"
 
+- name: Create alacritty conf dir
+  file:
+    path: "{{ homedir }}/.config/alacritty/"
+    state: directory
+    recursive: yes
+
+- name: Deploy alacritty conf
+  copy:
+    src: alacritty.yml
+    dest: "{{ homedir }}/.config/alacritty/alacritty.yml"
+
+
   #- name: Deploy fish config files
   #
   #- name: Deploy dunst config files

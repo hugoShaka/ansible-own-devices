@@ -1,0 +1,12 @@
+---
+- name: Install cargo-deb for alacritty (fails if already)
+  command: "cargo install cargo-deb"
+  args:
+    chdir: "{{ bin_directory }}/alacritty"
+  ignore_errors: True
+
+- name: Build and install alacritty
+  command:
+    command: "cargo deb --install"
+    path: "{{ bin_directory }}/alacritty"
+  become: yes

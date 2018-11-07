@@ -61,4 +61,3 @@
   template:
     src: gpg-agent.conf.j2
     dest: "{{ homedir }}/.gnupg/gpg-agent.conf"
-

@@ -6,3 +6,21 @@
 - name: Include wayland specific tasks
   include_tasks: graphical/wayland.yml
   when: "'wayland' in display_servers"
+
+- name: Install compilation dependencies for alacritty
+  apt:
+    pkg: cargo
+    state: present
+  become: true
+
+- name: Cloning alacritty
+  git:
+    repo: git clone https://github.com/jwilm/alacritty.git
+    dest: "{{ bin_directory }}/alacritty"
+  notify: Build alacritty
+
+- name: Use alacritty as terminal emulator
+  alternatives:
+    name: x-terminal-emulator
+    path: /usr/local/bin/alacritty
+  become: yes
